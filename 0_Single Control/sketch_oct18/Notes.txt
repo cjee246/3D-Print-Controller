@@ -1,0 +1,2 @@
+remove horizontal orientation
+all D-pad as thumbstick press
