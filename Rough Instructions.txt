@@ -1,0 +1,98 @@
+Rough Instructions:
+- Sorry for the lack of images, I'm doing this very after the fact
+
+***
+
+Materials:
+- 3D printer access
+- copper foil tape
+- conductive paint
+	- I used Bare Conductive Paint
+	- This can be excluded if you wish to use copper foil, but it looks sleeker with the paint
+- clear spray paint
+	- I used Rust-Oleum Painter's Touch 2X Ultra Cover Multi-Purpose Paint And Primer in Semi-Gloss Clear
+- wiring
+	- I used 28 AWG cut to length and manually crimped coming out of the controller - this means one needs crimps and a crimping tool
+		- Alternatively, you can use pre-crimped jumper cables for testing
+	- I used 30 AWG wiring for the internals
+- soldering equipment
+	- Soldering iron, solder, flux, fume extraction, alligator clips, etc.
+- Hot glue
+	- For fixing the internal wiring in place
+- breadboard
+- Arduino Pro Micro Atmega32U4 
+	- 2 of these if you're doing dual control support
+- Capacitive Touch Sensors
+	- I used Adafruit 12-Key Capacitive Touch Sensor Breakout - MPR121
+- USB-A to micro-USB cable
+	- 2 of these if you're doing dual control support
+
+***
+
+Flash code to Arduino Micro Controller
+- Micro USB to USB-A into your computer
+- If using dual control mode, note that there is a Left and Right Ctrl to flash for each one
+
+Print 3D Model
+- 5 pieces
+	- 2 buttons
+	- 1 d-pad
+	- 1 body
+	- 1 cover
+
+Attach wiring to pieces
+- Buttons
+	- Adhere a pad of copper foil to the underside of each button
+	- Solder 30 AWG wiring to each button, leave about 4 cm of length
+- D-Pad
+	- Adhere a pad of copper foil to the underside of each of the 4 sections of the D-pad at the tips
+	- Solder 30 AWG wiring to each button, leave about 4 cm of length
+
+Create the contact points
+- Using either point or extra foil, extend the conductive area from the bottom of the buttons to the top, where they'll be pressed by user
+	- For the D-Pad, I have about 1/2 cm over the edge of each section
+- Using paint
+	- Takes a bit of trial and error, but mix the paint with water to get a thick consistency that will stick to the surface while drying to a smooth texture
+	- Once the paint dries, I recommend going over the buttons and the pad with the clear spray paint
+		- this drastically helps prevent the paint from rubbing off from constant contact and having to repaint
+
+Wire the pieces to the sensor board
+- Feed the wires through the slots of the body
+- Solder them to the correct nodes of the Capacitive Touch Sensor
+	- up_ = 0;
+	- right_ = 1;
+	- down_ = 2;
+	- left_ = 3;
+	- btn1_ = 4;
+	- btn2_ = 5;
+- Glue the wiring coming out of the controller slots to prevent the buttons and pad from moving outwards
+
+Finish assembling the internals
+- Solder 4 x 28 AWG wires to the sensor board at -- VIN, GND, SCL, SDA
+	- Helpful to use different colors
+	- I use red (VIN), black (GND), yellow (SCL) and blue/green (SDA)
+- Feed the wires through the slot of the cover
+- Maneuver the internal cabling to minimize sharp bends and gently close and clip the cover with the sensor board inside
+	- New versions of the sensor board may have additional connectors on top, it may not fit if you keep them on...
+
+Connect to the micro controller
+- Connect the 4 wires to the Arduino micro controller
+	- I like to twist the wires to keep them together
+	- I also used a breadboard and crimp connections, but you can also solder or connect directly by other means
+- Make sure the pin connections are correct
+	- VIN (red) to VCC
+	- GND (black) to GND
+	- SCL (yellow) to Pin2
+	- SDA (blue) to Pin3
+
+Connect micro controller to machine
+- If using a computer/pc, it should be recognized as a joystick
+	- you can use gamepad testers to check if it is recognized
+	- https://hardwaretester.com/gamepad
+- If using an Xbox Adaptive Controller
+	- plug into one of the USB ports, depending on which joystick you wish to control
+	- you will then have to go into the controller app and configure the buttons as you wish (recommend A and B)
+	- If all D-pad buttons are pressed at the same time (i.e., with your palm), it registers as another button
+		- I use this to trigger the home button
+
+Hopefully all works well at this point -- happy gaming!
